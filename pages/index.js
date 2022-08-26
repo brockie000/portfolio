@@ -1,10 +1,33 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import React from 'react'
+import React, {useRef} from 'react'
 import Fullpage, {FullPageSections, FullpageSection, FullpageNavigation} from '@ap.cx/react-fullpage'
+import Navbar from '../components/navbar'
+import Link from 'next/link'
+import About from '../components/About'
+import HomeContainer from '../components/Home'
+import Particles from 'react-tsparticles'
+import Work from '../components/Work'
 
 export default function Home() {
+
+  const scrollToRef = (ref) => {
+    window.scrollTo(0, ref.current.offsetTop)
+  }
+  const myRef = useRef(null)
+  
+
+  const onBtnClick = () => {
+    let height = window.innerHeight
+    window.scroll(0,height)
+  }
+
+  const onBtnClickWork = () => {
+    let height = window.innerHeight*2
+    window.scroll(0,height)
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,21 +37,48 @@ export default function Home() {
       </Head>
       
       <Fullpage>
+        
         <FullpageNavigation />
         <FullPageSections>
 
-          <FullpageSection className={'section'}>
-            <div>
-              Screen 1
+          <FullpageSection className='section'>
+            <div className='text'>
+              <div className='navbar-main'>
+                <div>
+                    KB Digital
+                </div>
+                
+                <div className='nav-link'>
+                  <div goto='work' onClick={onBtnClick}>
+                  About
+                  </div>
+
+                  <div goto='about' onClick={onBtnClickWork}>
+                  Work
+                  </div>
+                </div>
+                
+              </div>
+
+              <div className='screen'>
+                <HomeContainer />
+              </div>
             </div>
+            
+
+          </FullpageSection>
+
+          <FullpageSection className='section-2'>
+            <About />
           </FullpageSection>
 
           <FullpageSection className='section'>
-            <div>
-              Screen 2
-            </div>
+            <Work />
           </FullpageSection>
 
+          <FullpageSection className='section-2'>
+            
+          </FullpageSection>
         </FullPageSections>
       </Fullpage>
     </div>
